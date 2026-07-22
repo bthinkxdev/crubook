@@ -17,13 +17,13 @@
     {% for book in books %}
     <article class="listing-card reveal{% if not forloop.first %} reveal-d1{% endif %}">
       <a
-        href="{% if book.detail_url_name %}{% url book.detail_url_name %}{% else %}#{% endif %}"
-        class="listing-cover{% if not book.available %} is-soon{% endif %}"
+        href="{{ book.get_absolute_url }}"
+        class="listing-cover{% if not book.is_available %} is-soon{% endif %}"
       >
-        <img src="{% static book.cover %}" alt="{{ book.title }}" loading="lazy">
+        <img src="{{ book.cover.url }}" alt="{{ book.title }}" loading="lazy">
       </a>
       <div class="listing-body">
-        <p class="section-label">{% if book.available %}Available{% else %}Coming Soon{% endif %}</p>
+        <p class="section-label">{% if book.is_available %}Available{% else %}Coming Soon{% endif %}</p>
         <h2>{{ book.title }}</h2>
         <p>{{ book.description }}</p>
         <div class="listing-meta">
@@ -31,12 +31,21 @@
           <strong>{{ book.price }}</strong>
         </div>
         <div class="listing-actions">
-          {% if book.detail_url_name %}
-          <a href="{% url book.detail_url_name %}" class="btn btn-dark btn-sm">Read More</a>
+          {% if book.is_available %}
+          <a href="{{ book.get_absolute_url }}" class="btn btn-dark btn-sm">Read More</a>
           {% else %}
-          <span class="btn btn-outline btn-sm is-disabled">Coming Soon</span>
+          <a href="{{ book.get_absolute_url }}" class="btn btn-outline btn-sm">Preview</a>
           {% endif %}
-          <button class="bag-btn" data-open-sheet="{{ book.sheet_key }}" aria-label="Buy {{ book.title }}">
+          <button
+            class="bag-btn"
+            type="button"
+            data-open-sheet
+            data-sheet-title="Download the Book"
+            data-sheet-desc="{{ book.blurb }}"
+            data-sheet-product="{{ book.title }}"
+            data-sheet-price="{{ book.price }}"
+            aria-label="Buy {{ book.title }}"
+          >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M6 8h12l-1 12H7L6 8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
               <path d="M9 8V7a3 3 0 016 0v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -45,6 +54,8 @@
         </div>
       </div>
     </article>
+    {% empty %}
+    <p class="page-lead">No books yet — add them from Django admin.</p>
     {% endfor %}
   </section>
 

@@ -1,10 +1,9 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.views.decorators.http import require_POST
-from django.views.generic import TemplateView
+from django.views.generic import DetailView, ListView, TemplateView
 
-from .data import BOOKS
-from .models import ContactMessage
+from .models import Book, ContactMessage
 
 
 class HomeView(TemplateView):
@@ -12,29 +11,43 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
+        books = Book.objects.all()
         ctx["active_tab"] = "home"
-        ctx["books"] = BOOKS
+        ctx["books"] = books.filter(is_featured=True)
+        ctx["hero_books"] = list(books.filter(is_featured=True)[:2])
         return ctx
 
 
-class BooksView(TemplateView):
+class BooksView(ListView):
     template_name = "studio/books.html"
+    context_object_name = "books"
+    queryset = Book.objects.all()
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx["active_tab"] = "books"
-        ctx["books"] = BOOKS
         return ctx
 
 
-class BookView(TemplateView):
+class BookDetailView(DetailView):
     template_name = "studio/book.html"
+    context_object_name = "book"
+    queryset = Book.objects.prefetch_related("chapters")
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx["active_tab"] = "books"
-        ctx["book"] = BOOKS[0]
         return ctx
+
+
+class BookLegacyRedirectView(TemplateView):
+    """Keep old /book/ URL working — send to first available book."""
+
+    def get(self, request, *args, **kwargs):
+        book = Book.objects.filter(is_available=True).first() or Book.objects.first()
+        if book:
+            return redirect("book_detail", slug=book.slug, permanent=False)
+        return redirect("books")
 
 
 class AboutView(TemplateView):
@@ -48,6 +61,14 @@ class AboutView(TemplateView):
 
 class ReaderView(TemplateView):
     template_name = "studio/reader.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["book"] = (
+            Book.objects.filter(has_reader=True, is_available=True).first()
+            or Book.objects.filter(is_available=True).first()
+        )
+        return ctx
 
 
 @require_POST

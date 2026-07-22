@@ -9,60 +9,86 @@
 <main class="book-main">
   <section class="book-hero reveal in-view">
     <div class="book-hero-cover">
-      <img src="{% static book.cover %}" alt="Cover of {{ book.title }}" width="280" height="400">
+      <img src="{{ book.cover.url }}" alt="Cover of {{ book.title }}" width="280" height="400">
     </div>
     <div class="book-hero-copy">
-      <p class="section-label">Book</p>
+      <p class="section-label">{% if book.is_available %}Book{% else %}Coming Soon{% endif %}</p>
       <h1>{{ book.title }}</h1>
-      <p class="book-hero-lead">Rethinking tradition, equality, and the freedom to choose — written by Veena J V.</p>
+      <p class="book-hero-lead">{% if book.lead %}{{ book.lead }}{% else %}{{ book.blurb }}{% endif %}</p>
       <div class="book-hero-actions">
-        <button class="btn btn-dark" data-open-sheet="{{ book.sheet_key }}">Download — {{ book.price }}</button>
-        <a href="{% url 'reader' %}" class="btn btn-outline">Read Online — ₹49</a>
+        <button
+          class="btn btn-dark"
+          type="button"
+          data-open-sheet
+          data-sheet-title="Download the Book"
+          data-sheet-desc="{{ book.blurb }}"
+          data-sheet-product="{{ book.title }}"
+          data-sheet-price="{{ book.price }}"
+        >Download — {{ book.price }}</button>
+        {% if book.has_reader and book.online_price %}
+        <a href="{% url 'reader' %}" class="btn btn-outline">Read Online — {{ book.online_price }}</a>
+        {% endif %}
       </div>
       <div class="book-chips">
         <span>{{ book.read_time }}</span>
-        <span>{{ book.edition }}</span>
+        {% if book.edition %}<span>{{ book.edition }}</span>{% endif %}
       </div>
     </div>
   </section>
 
+  {% if book.description %}
   <section class="section">
     <blockquote class="thought-card book-quote reveal">
       <span class="q-mark" aria-hidden="true">“</span>
-      <p>Change does not begin by rejecting everything from the past. It begins by asking whether what we inherited is still the best way forward.</p>
+      <p>{{ book.description }}</p>
       <i class="thought-rule" aria-hidden="true"></i>
     </blockquote>
   </section>
+  {% endif %}
 
+  {% if book.chapters.all %}
   <section class="section" id="inside">
     <div class="section-head">
       <h2 class="section-label">Inside the Book</h2>
     </div>
     <div class="chapter-stack">
-      <article class="chapter-row reveal"><span class="chapter-num">Chapter One</span><h3>Why I Wrote This Book</h3><p>The personal moment that turned quiet discomfort into questions no one around her was willing to ask.</p></article>
-      <article class="chapter-row reveal"><span class="chapter-num">Chapter Two</span><h3>The Roles We Inherit</h3><p>How daughters are taught to care for everyone else, long before they're taught to care for themselves.</p></article>
-      <article class="chapter-row reveal"><span class="chapter-num">Chapter Three</span><h3>What Is Marriage?</h3><p>Separating love and partnership from the expectations society quietly attaches to them.</p></article>
-      <article class="chapter-row reveal"><span class="chapter-num">Chapter Four</span><h3>What Needs to Change</h3><p>Practical, gentle shifts for building relationships on conversation instead of assumption.</p></article>
-      <article class="chapter-row reveal"><span class="chapter-num">Chapter Five</span><h3>Before You Close This Book</h3><p>A closing letter that asks you one last question — not about marriage, but about the dream you haven't buried yet.</p></article>
+      {% for chapter in book.chapters.all %}
+      <article class="chapter-row reveal">
+        <span class="chapter-num">{{ chapter.label }}</span>
+        <h3>{{ chapter.title }}</h3>
+        {% if chapter.summary %}<p>{{ chapter.summary }}</p>{% endif %}
+      </article>
+      {% endfor %}
     </div>
   </section>
+  {% endif %}
 
   <section class="section" id="pricing">
     <div class="section-head">
       <h2 class="section-label">Get the Book</h2>
     </div>
     <div class="price-stack">
+      {% if book.has_reader and book.online_price %}
       <div class="price-card reveal">
         <p class="section-label">Read Online</p>
-        <div class="amount">₹49</div>
+        <div class="amount">{{ book.online_price }}</div>
         <p>Open it in your browser — perfect for reading tonight.</p>
         <a href="{% url 'reader' %}" class="btn btn-outline btn-block">Start Reading</a>
       </div>
+      {% endif %}
       <div class="price-card reveal">
         <p class="section-label">Download</p>
         <div class="amount">{{ book.price }}</div>
         <p>Your own copy — keep it, revisit it, share what speaks to you.</p>
-        <button class="btn btn-dark btn-block" data-open-sheet="{{ book.sheet_key }}">Download Now</button>
+        <button
+          class="btn btn-dark btn-block"
+          type="button"
+          data-open-sheet
+          data-sheet-title="Download the Book"
+          data-sheet-desc="{{ book.blurb }}"
+          data-sheet-product="{{ book.title }}"
+          data-sheet-price="{{ book.price }}"
+        >Download Now</button>
       </div>
     </div>
   </section>

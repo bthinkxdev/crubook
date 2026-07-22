@@ -234,36 +234,20 @@
   var sheetPrice = document.getElementById("sheetPrice");
   var payBtn = document.getElementById("payBtn");
 
-  var offerings = {
-    download: {
-      title: "Download the Book",
-      desc: "Your own copy, formatted for a calm reading experience.",
-      product: "Questioning the Marriage System",
-      price: "₹99",
-    },
-    download2: {
-      title: "Download the Book",
-      desc: "A gentle guide to healing and growing — yours to keep.",
-      product: "Letters to My Younger Self",
-      price: "₹149",
-    },
-    read: {
-      title: "Read Online",
-      desc: "Instant access in your browser.",
-      product: "Questioning the Marriage System",
-      price: "₹49",
-    },
-  };
-
-  function openSheet(kind) {
-    if (!sheet || !backdrop) return;
+  function openSheetFromEl(el) {
+    if (!sheet || !backdrop || !el) return;
     closeContactFn();
-    var o = offerings[kind] || offerings.download;
-    if (sheetTitle) sheetTitle.textContent = o.title;
-    if (sheetDesc) sheetDesc.textContent = o.desc;
-    if (sheetProduct) sheetProduct.textContent = o.product;
-    if (sheetPrice) sheetPrice.textContent = o.price;
-    if (payBtn) payBtn.textContent = "Pay " + o.price;
+    var title = el.getAttribute("data-sheet-title") || "Download the Book";
+    var desc =
+      el.getAttribute("data-sheet-desc") ||
+      "Your own copy, formatted for a calm reading experience.";
+    var product = el.getAttribute("data-sheet-product") || "Book";
+    var price = el.getAttribute("data-sheet-price") || "";
+    if (sheetTitle) sheetTitle.textContent = title;
+    if (sheetDesc) sheetDesc.textContent = desc;
+    if (sheetProduct) sheetProduct.textContent = product;
+    if (sheetPrice) sheetPrice.textContent = price;
+    if (payBtn) payBtn.textContent = price ? "Pay " + price : "Continue";
     sheet.classList.add("open");
     backdrop.classList.add("open");
     document.body.style.overflow = "hidden";
@@ -280,7 +264,7 @@
 
   document.querySelectorAll("[data-open-sheet]").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      openSheet(btn.getAttribute("data-open-sheet"));
+      openSheetFromEl(btn);
     });
   });
 

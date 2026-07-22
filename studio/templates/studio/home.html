@@ -27,12 +27,18 @@
         </a>
       </div>
       <div class="hero-books" aria-hidden="true">
+        {% for book in hero_books %}
+        <div class="stand-book stand-book--{{ forloop.counter }}">
+          <img src="{{ book.cover.url }}" alt="">
+        </div>
+        {% empty %}
         <div class="stand-book stand-book--1">
           <img src="{% static 'images/book-cover.jpg' %}" alt="">
         </div>
         <div class="stand-book stand-book--2">
           <img src="{% static 'images/book-cover-02.jpg' %}" alt="">
         </div>
+        {% endfor %}
       </div>
     </div>
   </section>
@@ -47,8 +53,8 @@
       <div class="carousel" id="booksCarousel" data-dots="booksDots">
         {% for book in books %}
         <article class="product-card">
-          <a href="{% if book.detail_url_name %}{% url book.detail_url_name %}{% else %}{% url 'books' %}{% endif %}" class="product-cover">
-            <img src="{% static book.cover %}" alt="{{ book.title }}" loading="lazy">
+          <a href="{{ book.get_absolute_url }}" class="product-cover{% if not book.is_available %} is-soon{% endif %}">
+            <img src="{{ book.cover.url }}" alt="{{ book.title }}" loading="lazy">
           </a>
           <div class="product-body">
             <div class="product-copy">
@@ -60,7 +66,16 @@
                 <span>{{ book.read_time }}</span>
                 <strong>{{ book.price }}</strong>
               </div>
-              <button class="bag-btn" data-open-sheet="{{ book.sheet_key }}" aria-label="Buy {{ book.title }}">
+              <button
+                class="bag-btn"
+                type="button"
+                data-open-sheet
+                data-sheet-title="Download the Book"
+                data-sheet-desc="{{ book.blurb }}"
+                data-sheet-product="{{ book.title }}"
+                data-sheet-price="{{ book.price }}"
+                aria-label="Buy {{ book.title }}"
+              >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M6 8h12l-1 12H7L6 8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
                   <path d="M9 8V7a3 3 0 016 0v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -69,6 +84,8 @@
             </div>
           </div>
         </article>
+        {% empty %}
+        <p class="page-lead">Books will appear here once added in the admin.</p>
         {% endfor %}
       </div>
       <div class="carousel-dots" id="booksDots" aria-hidden="true"></div>
