@@ -1,0 +1,62 @@
+{% extends "studio/base.html" %}
+{% load static %}
+
+{% block title %}Our Books — author.thinks{% endblock %}
+{% block meta_description %}Explore books by Veena J V — calm, questioning reads on love, freedom, relationships, and the traditions we inherit.{% endblock %}
+{% block body_class %}page-books{% endblock %}
+
+{% block content %}
+<main class="page-main">
+  <header class="page-hero reveal in-view">
+    <p class="section-label">Library</p>
+    <h1>Our Books</h1>
+    <p class="page-lead">Quiet conversations you can hold in your hands — written to make you pause, not rush.</p>
+  </header>
+
+  <section class="books-list" aria-label="All books">
+    {% for book in books %}
+    <article class="listing-card reveal{% if not forloop.first %} reveal-d1{% endif %}">
+      <a
+        href="{% if book.detail_url_name %}{% url book.detail_url_name %}{% else %}#{% endif %}"
+        class="listing-cover{% if not book.available %} is-soon{% endif %}"
+      >
+        <img src="{% static book.cover %}" alt="{{ book.title }}" loading="lazy">
+      </a>
+      <div class="listing-body">
+        <p class="section-label">{% if book.available %}Available{% else %}Coming Soon{% endif %}</p>
+        <h2>{{ book.title }}</h2>
+        <p>{{ book.description }}</p>
+        <div class="listing-meta">
+          <span>{{ book.read_time }}</span>
+          <strong>{{ book.price }}</strong>
+        </div>
+        <div class="listing-actions">
+          {% if book.detail_url_name %}
+          <a href="{% url book.detail_url_name %}" class="btn btn-dark btn-sm">Read More</a>
+          {% else %}
+          <span class="btn btn-outline btn-sm is-disabled">Coming Soon</span>
+          {% endif %}
+          <button class="bag-btn" data-open-sheet="{{ book.sheet_key }}" aria-label="Buy {{ book.title }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 8h12l-1 12H7L6 8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M9 8V7a3 3 0 016 0v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </section>
+
+  <footer class="site-footer">
+    <a href="{% url 'home' %}" class="brand-name">author.thinks</a>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="{% url 'books' %}">Books</a>
+      <a href="{% url 'about' %}">About</a>
+      <a href="https://www.instagram.com/author.thinks/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <button type="button" data-open-contact>Contact</button>
+    </nav>
+    <p class="footer-copy">© 2026 Veena J V</p>
+  </footer>
+</main>
+{% endblock %}

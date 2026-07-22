@@ -1,0 +1,173 @@
+{% extends "studio/base.html" %}
+{% load static %}
+
+{% block title %}author.thinks — Veena J V{% endblock %}
+
+{% block content %}
+<main>
+
+  <section class="hero" id="home">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="{% static 'images/hero-bg.jpg' %}" alt="" loading="eager">
+      <div class="hero-veil"></div>
+    </div>
+    <div class="hero-content reveal in-view">
+      <p class="hero-eyebrow">Writing. Reflecting. Questioning.</p>
+      <h1>Stories that make<br>you pause.</h1>
+      <p class="hero-lead">Thoughts on love, freedom, relationships and the questions we inherit.</p>
+      <div class="hero-actions">
+        <a href="{% url 'books' %}" class="btn btn-dark">Explore Books <span aria-hidden="true">→</span></a>
+        <a href="https://www.instagram.com/author.thinks/" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+          </svg>
+          Follow on Instagram
+        </a>
+      </div>
+      <div class="hero-books" aria-hidden="true">
+        <div class="stand-book stand-book--1">
+          <img src="{% static 'images/book-cover.jpg' %}" alt="">
+        </div>
+        <div class="stand-book stand-book--2">
+          <img src="{% static 'images/book-cover-02.jpg' %}" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="books">
+    <div class="section-head">
+      <h2 class="section-label">Our Books</h2>
+      <a href="{% url 'books' %}" class="section-link">View all books <span aria-hidden="true">→</span></a>
+    </div>
+
+    <div class="carousel-wrap">
+      <div class="carousel" id="booksCarousel" data-dots="booksDots">
+        {% for book in books %}
+        <article class="product-card">
+          <a href="{% if book.detail_url_name %}{% url book.detail_url_name %}{% else %}{% url 'books' %}{% endif %}" class="product-cover">
+            <img src="{% static book.cover %}" alt="{{ book.title }}" loading="lazy">
+          </a>
+          <div class="product-body">
+            <div class="product-copy">
+              <h3>{{ book.title }}</h3>
+              <p>{{ book.blurb }}</p>
+            </div>
+            <div class="product-footer">
+              <div class="product-meta">
+                <span>{{ book.read_time }}</span>
+                <strong>{{ book.price }}</strong>
+              </div>
+              <button class="bag-btn" data-open-sheet="{{ book.sheet_key }}" aria-label="Buy {{ book.title }}">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M6 8h12l-1 12H7L6 8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                  <path d="M9 8V7a3 3 0 016 0v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+      <div class="carousel-dots" id="booksDots" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="section" id="about-preview">
+    <article class="about-card reveal">
+      <svg class="about-leaf" viewBox="0 0 200 240" fill="none" aria-hidden="true">
+        <path d="M100 20c10 40 48 70 48 120 0 40-22 70-48 90-26-20-48-50-48-90 0-50 38-80 48-120z" stroke="currentColor" stroke-width="1"/>
+        <path d="M100 40v160M100 90c-18 8-30 28-32 50M100 90c18 8 30 28 32 50M100 140c-14 6-22 18-24 32M100 140c14 6 22 18 24 32" stroke="currentColor" stroke-width="1"/>
+      </svg>
+      <div class="about-portrait">
+        <img src="{% static 'images/author-portrait.jpg' %}" alt="Veena J V" loading="lazy">
+        <svg class="gold-leaf" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <path d="M24 4c2 10 12 16 12 28 0 8-5 12-12 16-7-4-12-8-12-16 0-12 10-18 12-28z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="about-copy">
+        <p class="section-label">About the Author</p>
+        <h2>Veena J V</h2>
+        <p>Writer. Observer. Questioner. Exploring love, freedom &amp; the questions we inherit.</p>
+        <a href="{% url 'about' %}" class="text-link">More about Veena <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+  </section>
+
+  <section class="section" id="thoughts">
+    <div class="section-head">
+      <h2 class="section-label">Thoughts to Reflect On</h2>
+    </div>
+    <div class="carousel-wrap">
+      <div class="carousel quotes-carousel" id="quotesCarousel" data-dots="quotesDots">
+        <blockquote class="thought-card">
+          <span class="q-mark" aria-hidden="true">“</span>
+          <p>Change does not begin by rejecting everything from the past.</p>
+          <i class="thought-rule" aria-hidden="true"></i>
+        </blockquote>
+        <blockquote class="thought-card">
+          <span class="q-mark" aria-hidden="true">“</span>
+          <p>Normal does not always mean just.</p>
+          <i class="thought-rule" aria-hidden="true"></i>
+        </blockquote>
+        <blockquote class="thought-card">
+          <span class="q-mark" aria-hidden="true">“</span>
+          <p>Every meaningful change begins with questioning.</p>
+          <i class="thought-rule" aria-hidden="true"></i>
+        </blockquote>
+      </div>
+      <div class="carousel-dots" id="quotesDots" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="section" id="reviews">
+    <div class="section-head">
+      <h2 class="section-label">What Readers Are Saying</h2>
+      <a href="#reviews" class="section-link">Read all reviews <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="carousel-wrap">
+      <div class="carousel reviews-carousel" id="reviewsCarousel" data-dots="reviewsDots">
+        <figure class="review-card">
+          <div class="stars" aria-label="5 stars">★★★★★</div>
+          <blockquote>“This stayed with me for days.”</blockquote>
+          <figcaption>
+            <span class="avatar" aria-hidden="true">A</span>
+            <span>Ananya S.</span>
+          </figcaption>
+        </figure>
+        <figure class="review-card">
+          <div class="stars" aria-label="5 stars">★★★★★</div>
+          <blockquote>“It made me rethink marriage.”</blockquote>
+          <figcaption>
+            <span class="avatar" aria-hidden="true">M</span>
+            <span>Meera K.</span>
+          </figcaption>
+        </figure>
+        <figure class="review-card">
+          <div class="stars" aria-label="5 stars">★★★★★</div>
+          <blockquote>“I finished it in one sitting.”</blockquote>
+          <figcaption>
+            <span class="avatar" aria-hidden="true">R</span>
+            <span>Riya P.</span>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="carousel-dots" id="reviewsDots" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <a href="{% url 'home' %}" class="brand-name">author.thinks</a>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="{% url 'books' %}">Books</a>
+      <a href="{% url 'about' %}">About</a>
+      <a href="https://www.instagram.com/author.thinks/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <button type="button" data-open-contact>Contact</button>
+    </nav>
+    <p class="footer-copy">© 2026 Veena J V</p>
+  </footer>
+
+</main>
+{% endblock %}

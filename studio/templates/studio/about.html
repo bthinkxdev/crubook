@@ -1,0 +1,75 @@
+{% extends "studio/base.html" %}
+{% load static %}
+
+{% block title %}About Veena J V — author.thinks{% endblock %}
+{% block meta_description %}Veena J V — writer, observer, questioner. Exploring love, freedom, and the questions we inherit.{% endblock %}
+{% block body_class %}page-about{% endblock %}
+
+{% block content %}
+<main class="page-main">
+  <header class="page-hero reveal in-view">
+    <p class="section-label">About the Author</p>
+    <h1>Veena J V</h1>
+    <p class="page-lead">Writer. Observer. Questioner.</p>
+  </header>
+
+  <section class="about-page-card reveal">
+    <div class="about-page-portrait">
+      <img src="{% static 'images/author-portrait.jpg' %}" alt="Veena J V">
+      <svg class="gold-leaf" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <path d="M24 4c2 10 12 16 12 28 0 8-5 12-12 16-7-4-12-8-12-16 0-12 10-18 12-28z" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="about-page-copy">
+      <p>I write about the things we are taught not to question — love, freedom, relationships, and the quiet systems that shape how we live.</p>
+      <p>author.thinks is my studio: a place for stories that make you pause, and questions that stay with you after the last page.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="section-label">How I Write</h2>
+    </div>
+    <div class="about-points">
+      <article class="thought-card reveal">
+        <span class="q-mark" aria-hidden="true">“</span>
+        <p>From experience, not theory — noticing who gets asked to adjust, and who never has to.</p>
+        <i class="thought-rule" aria-hidden="true"></i>
+      </article>
+      <article class="thought-card reveal reveal-d1">
+        <span class="q-mark" aria-hidden="true">“</span>
+        <p>Not against marriage. Against the silence around the roles we inherit without choosing.</p>
+        <i class="thought-rule" aria-hidden="true"></i>
+      </article>
+      <article class="thought-card reveal reveal-d2">
+        <span class="q-mark" aria-hidden="true">“</span>
+        <p>Every meaningful change begins with questioning.</p>
+        <i class="thought-rule" aria-hidden="true"></i>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="about-connect reveal">
+      <p class="section-label">Connect</p>
+      <h2>Stay in the conversation</h2>
+      <ul class="social-row">
+        <li><a href="https://www.instagram.com/author.thinks/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="https://www.goodreads.com/" target="_blank" rel="noopener noreferrer">Goodreads</a></li>
+        <li><button type="button" data-open-contact>Write to me</button></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <a href="{% url 'home' %}" class="brand-name">author.thinks</a>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="{% url 'books' %}">Books</a>
+      <a href="{% url 'about' %}">About</a>
+      <a href="https://www.instagram.com/author.thinks/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <button type="button" data-open-contact>Contact</button>
+    </nav>
+    <p class="footer-copy">© 2026 Veena J V</p>
+  </footer>
+</main>
+{% endblock %}

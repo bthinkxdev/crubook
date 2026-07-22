@@ -1,0 +1,211 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Read Online — Questioning the Marriage System · author.thinks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/reader.css' %}">
+</head>
+<body class="reader-body" data-book-id="questioning-the-marriage-system">
+
+<div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
+<div class="reader-glow" aria-hidden="true"></div>
+
+<div class="reader-shell" id="readerShell">
+
+  <header class="reader-topbar glass" id="readerTopbar">
+    <a href="{% url 'book' %}" class="rt-btn" aria-label="Back to book">
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 4L6.5 10L12.5 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Book</span>
+    </a>
+    <div class="rt-center">
+      <span class="rt-studio">author.thinks</span>
+      <span class="rt-title" id="chapterLabel">Questioning the Marriage System</span>
+    </div>
+    <div class="rt-actions">
+      <button class="rt-btn" id="tocToggle" aria-label="Contents" aria-expanded="false" aria-controls="tocPanel">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <div class="fontpop-wrap">
+        <button class="rt-btn" id="fontToggle" aria-label="Text size" aria-expanded="false" aria-controls="fontPop">Aa</button>
+        <div class="fontpop glass-strong" id="fontPop" hidden>
+          <div class="label">Text size</div>
+          <div class="font-row">
+            <button class="font-btn small" id="fontDown" aria-label="Smaller text">A</button>
+            <div class="font-size-dots" id="fontDots" aria-hidden="true">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <button class="font-btn large" id="fontUp" aria-label="Larger text">A</button>
+          </div>
+          <p class="font-hint">Comfortable reading for a quiet evening.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contents -->
+  <aside class="toc-panel glass-strong" id="tocPanel" aria-hidden="true">
+    <div class="toc-head">
+      <p class="section-label">Contents</p>
+      <button class="rt-btn" id="tocClose" aria-label="Close contents">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <nav class="toc-nav" id="tocNav" aria-label="Chapters"></nav>
+    <p class="toc-note">Free preview includes the opening pages. Unlock anytime to continue.</p>
+  </aside>
+  <div class="toc-backdrop" id="tocBackdrop" hidden></div>
+
+  <div class="page-viewport" id="pageViewport">
+    <button class="nav-arrow prev glass" id="prevBtn" aria-label="Previous page">
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M12.5 4L6.5 10L12.5 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <div class="page-stage">
+      <div class="page-card" id="pageCard">
+        <div class="page-paper" aria-hidden="true"></div>
+        <div class="tap-zone left" id="tapLeft" role="button" tabindex="-1" aria-label="Previous page"></div>
+        <div class="tap-zone center" id="tapCenter" role="button" tabindex="-1" aria-label="Show or hide controls"></div>
+        <div class="tap-zone right" id="tapRight" role="button" tabindex="-1" aria-label="Next page"></div>
+
+        <div class="page-slot title-page active" data-page="0" data-chapter="Cover" data-section="cover">
+          <p class="reader-studio">author.thinks</p>
+          <h1>Questioning the<br>Marriage System</h1>
+          <p class="sub">Rethinking Tradition, Equality, and the Freedom to Choose</p>
+          <p class="by">Veena J V · First Edition</p>
+          <button type="button" class="btn btn-dark begin-btn" id="beginBtn">Begin reading <span aria-hidden="true">→</span></button>
+          <p class="begin-hint">A calm 2-hour reading experience</p>
+        </div>
+
+        <div class="page-slot" data-page="1" data-chapter="Dedication" data-section="front">
+          <div class="page-eyebrow">Dedication</div>
+          <div class="page-body">
+            <p class="italic-line pull-quote">“To the person who unknowingly inspired this journey of questioning.”</p>
+          </div>
+          <p class="page-foot">Turn the page to continue</p>
+        </div>
+
+        <div class="page-slot" data-page="2" data-chapter="Introduction" data-section="intro">
+          <div class="page-eyebrow">Introduction · I</div>
+          <div class="page-body">
+            <p>The problem is not marriage itself. The problem is the system, traditions, and expectations that many societies have attached to it.</p>
+            <p>This book is not an attempt to convince you to reject marriage. It is an invitation to question the system we have inherited.</p>
+          </div>
+        </div>
+
+        <div class="page-slot" data-page="3" data-chapter="Introduction" data-section="intro">
+          <div class="page-eyebrow">Introduction · II</div>
+          <div class="page-body">
+            <p>For generations, many of us have followed traditions simply because they have always existed. We call these practices "normal," but normal does not always mean just.</p>
+            <p class="italic-line">Marriage itself is not the problem. A relationship built on love, respect, equality, and shared responsibility can be deeply meaningful.</p>
+          </div>
+        </div>
+
+        <div class="page-slot" data-page="4" data-chapter="Chapter One" data-section="ch1">
+          <div class="page-eyebrow">Chapter One</div>
+          <h2 class="page-chapter-title">Why I Wrote This Book</h2>
+          <div class="page-body">
+            <p>I didn't wake up one morning and decide to question the marriage system. This thought was built slowly, over years, through the things I saw and the questions no one around me seemed willing to ask.</p>
+            <p>I grew up in a family where certain responsibilities were never questioned. Household work belonged to women. It wasn't discussed; it was simply accepted as the natural order of life.</p>
+          </div>
+        </div>
+
+        <div class="page-slot" data-page="5" data-chapter="Chapter One" data-section="ch1">
+          <div class="page-eyebrow">Chapter One · continued</div>
+          <div class="page-body">
+            <p>As I grew older, I began asking myself a simple question. Why were these expectations placed on one gender and not the other? Why was sacrifice considered a woman's duty but never recognized as work?</p>
+            <p>These questions stayed with me, but I had no answers. Then one conversation became the turning point…</p>
+          </div>
+          <p class="page-foot soft">End of free preview on the next page</p>
+        </div>
+
+        <div class="page-slot paywall-center" data-page="6" data-chapter="Continue" data-section="locked">
+          <div class="paywall-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="2" stroke="white" stroke-width="1.6"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <h2>You've reached the end of your free preview</h2>
+          <p>The rest of Veena's story — the conversation about dowry that changed everything, and four more chapters — is waiting for you.</p>
+          <button type="button" class="btn btn-dark" id="paywallOpenBtn">Continue reading — ₹49</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="nav-arrow next glass" id="nextBtn" aria-label="Next page">
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M7.5 4L13.5 10L7.5 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <!-- Guidance coach marks -->
+  <div class="guide-overlay" id="guideOverlay" hidden>
+    <div class="guide-card glass-strong">
+      <p class="section-label">How to read</p>
+      <h2>A quiet page turn</h2>
+      <ul class="guide-list">
+        <li><span class="guide-key">Tap right</span> or swipe left to turn forward</li>
+        <li><span class="guide-key">Tap left</span> or swipe right to go back</li>
+        <li><span class="guide-key">Tap center</span> to show or hide controls</li>
+      </ul>
+      <button type="button" class="btn btn-dark btn-block" id="guideStart">Start reading</button>
+      <button type="button" class="guide-skip" id="guideSkip">Skip tip</button>
+    </div>
+  </div>
+
+  <div class="edge-hint edge-hint--right" id="edgeHint" aria-hidden="true">
+    <span>Tap to turn</span>
+  </div>
+
+  <footer class="reader-bottombar glass" id="readerBottombar">
+    <div class="progress-copy">
+      <span class="progress-chapter" id="progressChapter">Cover</span>
+      <span class="progress-label" id="pageLabel">1 / 7</span>
+    </div>
+    <div class="progress-track" role="progressbar" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1" id="progressTrack">
+      <div class="progress-fill" id="progressFill"></div>
+      <div class="progress-segments" id="progressSegments" aria-hidden="true"></div>
+    </div>
+    <p class="progress-remain" id="progressRemain">Begin when you're ready</p>
+  </footer>
+
+  <div class="resume-toast glass-strong" id="resumeToast" hidden>
+    <div>
+      <strong>Welcome back</strong>
+      <span id="resumeText">Continue where you left off?</span>
+    </div>
+    <div class="resume-actions">
+      <button type="button" class="btn btn-dark btn-sm" id="resumeYes">Continue</button>
+      <button type="button" class="btn btn-outline btn-sm" id="resumeNo">Start over</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="sheet-backdrop" id="paywallBackdrop"></div>
+<div class="sheet" id="paywallSheet" role="dialog" aria-modal="true" aria-labelledby="paywallTitle">
+  <div class="sheet-handle"></div>
+  <h3 id="paywallTitle">Unlock the full book</h3>
+  <p>Continue reading online for a one-time fee — no subscription, no account needed.</p>
+  <div class="sheet-row">
+    <span class="label">Read Online — full access</span>
+    <span class="value">₹49</span>
+  </div>
+  <div class="sheet-actions">
+    <button class="btn btn-dark btn-block" id="unlockBtn">Unlock for ₹49</button>
+    <a href="{% url 'book' %}#pricing" class="btn btn-outline btn-block">Prefer to download instead? ₹99</a>
+    <button class="btn btn-outline btn-block" id="closePaywall">Keep previewing</button>
+  </div>
+  <p class="sheet-note">Payments are securely handled at checkout. Gateway integration coming soon.</p>
+</div>
+
+<div class="toast" id="toast">
+  <span class="dot"></span>
+  <span id="toastText">Payment gateway coming soon.</span>
+</div>
+
+<script src="{% static 'js/reader.js' %}"></script>
+</body>
+</html>
