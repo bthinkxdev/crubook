@@ -12,7 +12,8 @@ SECRET_KEY = os.environ.get(
     "django-insecure-author-thinks-dev-only-change-in-production",
 )
 
-DEBUG = os.environ.get("DJANGO_DEBUG", "0") == "1"
+# Local default: on. On the server set DJANGO_DEBUG=0.
+DEBUG = os.environ.get("DJANGO_DEBUG", "1") == "1"
 
 ALLOWED_HOSTS = [
     "localhost",
