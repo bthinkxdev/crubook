@@ -2,15 +2,32 @@
 Django settings for author.thinks (config project).
 """
 
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure-author-thinks-dev-only-change-in-production"
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY",
+    "django-insecure-author-thinks-dev-only-change-in-production",
+)
 
-DEBUG = True
+DEBUG = os.environ.get("DJANGO_DEBUG", "0") == "1"
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "testserver"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "testserver",
+    "authorthinks.bthinkx.com",
+    "www.authorthinks.bthinkx.com",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://authorthinks.bthinkx.com",
+    "https://www.authorthinks.bthinkx.com",
+    "http://authorthinks.bthinkx.com",
+    "http://www.authorthinks.bthinkx.com",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -72,5 +89,12 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Production hardening when DEBUG is off
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
