@@ -147,6 +147,17 @@
     var startX = 0;
     var scrollLeft = 0;
     var moved = false;
+    var dragPointerId = null;
+
+    function isInteractiveTarget(target) {
+      return !!(
+        target &&
+        target.closest &&
+        target.closest(
+          "button, input, textarea, select, label, [data-open-sheet], .bag-btn"
+        )
+      );
+    }
 
     if (dotsWrap && cards.length) {
       dotsWrap.innerHTML = "";
@@ -183,29 +194,38 @@
     carousel.addEventListener("scroll", updateDots, { passive: true });
 
     carousel.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      // Never steal taps meant for buy buttons / links (mobile ghost-nav bug).
+      if (isInteractiveTarget(e.target)) return;
+
       isDown = true;
       moved = false;
+      dragPointerId = e.pointerId;
       startX = e.clientX;
       scrollLeft = carousel.scrollLeft;
-      carousel.classList.add("is-dragging");
-      try {
-        carousel.setPointerCapture(e.pointerId);
-      } catch (err) {}
     });
 
     carousel.addEventListener("pointermove", function (e) {
-      if (!isDown) return;
+      if (!isDown || e.pointerId !== dragPointerId) return;
       var dx = e.clientX - startX;
-      if (Math.abs(dx) > 4) moved = true;
+      if (Math.abs(dx) < 8) return;
+      if (!moved) {
+        moved = true;
+        carousel.classList.add("is-dragging");
+        try {
+          carousel.setPointerCapture(e.pointerId);
+        } catch (err) {}
+      }
       carousel.scrollLeft = scrollLeft - dx;
     });
 
     function endDrag(e) {
-      if (!isDown) return;
+      if (!isDown || (e && e.pointerId !== dragPointerId)) return;
       isDown = false;
+      dragPointerId = null;
       carousel.classList.remove("is-dragging");
       try {
-        carousel.releasePointerCapture(e.pointerId);
+        if (e) carousel.releasePointerCapture(e.pointerId);
       } catch (err) {}
     }
 
@@ -217,6 +237,7 @@
         if (moved) {
           e.preventDefault();
           e.stopPropagation();
+          moved = false;
         }
       },
       true
@@ -263,7 +284,12 @@
   }
 
   document.querySelectorAll("[data-open-sheet]").forEach(function (btn) {
-    btn.addEventListener("click", function () {
+    btn.addEventListener("pointerdown", function (e) {
+      e.stopPropagation();
+    });
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
       openSheetFromEl(btn);
     });
   });
