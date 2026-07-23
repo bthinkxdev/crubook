@@ -917,6 +917,53 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   font-size: 22px;
   font-weight: 500;
 }
+.sheet-email-field { display: none; }
+
+.prepare-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(42, 39, 36, 0.42);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.prepare-overlay[hidden] { display: none !important; }
+.prepare-card {
+  width: min(100%, 320px);
+  text-align: center;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lift, var(--shadow));
+  padding: 36px 28px 32px;
+}
+.prepare-spinner {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  border: 2.5px solid var(--accent-soft, #E9DED2);
+  border-top-color: var(--charcoal, #2C2A27);
+  animation: prepare-spin 0.85s linear infinite;
+}
+.prepare-title {
+  margin: 0 0 8px;
+  font-family: var(--display);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.prepare-text {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+@keyframes prepare-spin {
+  to { transform: rotate(360deg); }
+}
 .sheet-actions {
   margin-top: 12px;
   display: flex;

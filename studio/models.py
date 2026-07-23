@@ -2,6 +2,10 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 
+from .storage import PrivateMediaStorage
+
+private_storage = PrivateMediaStorage()
+
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
@@ -19,6 +23,12 @@ class Book(models.Model):
         help_text="Optional subtitle under the title on the book page.",
     )
     cover = models.ImageField(upload_to="books/covers/")
+    pdf = models.FileField(
+        upload_to="books/pdfs/",
+        storage=private_storage,
+        blank=True,
+        help_text="Private PDF delivered after download purchase (email + browser).",
+    )
     price = models.CharField(
         max_length=40,
         help_text='Display price, e.g. "₹99".',
@@ -87,6 +97,11 @@ class Book(models.Model):
         if product_type == "online":
             return int(self.online_price_paise or 0)
         return int(self.price_paise or 0)
+
+    @property
+    def has_pdf(self) -> bool:
+        return bool(self.pdf and self.pdf.name)
+
 
 
 class Chapter(models.Model):
@@ -166,11 +181,20 @@ class PurchaseOrder(models.Model):
     razorpay_signature = models.CharField(max_length=255, blank=True)
     buyer_email = models.EmailField(blank=True)
     buyer_contact = models.CharField(max_length=20, blank=True)
+    download_token = models.UUIDField(null=True, blank=True, unique=True, editable=False)
+    email_sent_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     paid_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         ordering = ["-created_at"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["razorpay_payment_id"],
+                condition=~models.Q(razorpay_payment_id=""),
+                name="unique_razorpay_payment_id_when_set",
+            ),
+        ]
 
     def __str__(self):
         return f"{self.book.title} · {self.get_product_type_display()} · {self.status}"

@@ -17,6 +17,7 @@ class BookAdmin(admin.ModelAdmin):
         "title",
         "price",
         "price_paise",
+        "has_pdf",
         "is_available",
         "is_featured",
         "has_reader",
@@ -40,6 +41,7 @@ class BookAdmin(admin.ModelAdmin):
                     "description",
                     "lead",
                     "cover",
+                    "pdf",
                 )
             },
         ),
@@ -85,6 +87,10 @@ class BookAdmin(admin.ModelAdmin):
             obj.cover.url,
         )
 
+    @admin.display(description="PDF", boolean=True)
+    def has_pdf(self, obj):
+        return obj.has_pdf
+
 
 @admin.register(PurchaseOrder)
 class PurchaseOrderAdmin(admin.ModelAdmin):
@@ -95,6 +101,7 @@ class PurchaseOrderAdmin(admin.ModelAdmin):
         "amount_display",
         "status",
         "buyer_email",
+        "email_sent_at",
         "created_at",
         "paid_at",
     )
@@ -104,6 +111,7 @@ class PurchaseOrderAdmin(admin.ModelAdmin):
         "razorpay_payment_id",
         "buyer_email",
         "book__title",
+        "download_token",
     )
     readonly_fields = (
         "book",
@@ -116,6 +124,8 @@ class PurchaseOrderAdmin(admin.ModelAdmin):
         "razorpay_signature",
         "buyer_email",
         "buyer_contact",
+        "download_token",
+        "email_sent_at",
         "created_at",
         "paid_at",
     )

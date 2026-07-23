@@ -77,6 +77,10 @@ def create_order(
     )
 
 
+def fetch_payment(payment_id: str) -> dict[str, Any]:
+    return _request("GET", f"/payments/{payment_id}")
+
+
 def verify_payment_signature(
     *,
     razorpay_order_id: str,
@@ -91,3 +95,4 @@ def verify_payment_signature(
         hashlib.sha256,
     ).hexdigest()
     return hmac.compare_digest(expected, razorpay_signature)
+

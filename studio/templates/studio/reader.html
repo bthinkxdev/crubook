@@ -14,7 +14,8 @@
 <body class="reader-body"
       data-book-id="{% if book %}{{ book.slug }}{% else %}questioning-the-marriage-system{% endif %}"
       data-payment-create-url="{% url 'payment_create_order' %}"
-      data-payment-verify-url="{% url 'payment_verify' %}">
+      data-payment-verify-url="{% url 'payment_verify' %}"
+      data-payment-access-base="{% url 'payment_access' '00000000-0000-0000-0000-000000000000' %}">
 {% csrf_token %}
 
 <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -208,12 +209,20 @@
     <a href="{% url 'books' %}" class="btn btn-outline btn-block">Prefer to download instead?</a>
     <button class="btn btn-outline btn-block" id="closePaywall" type="button">Keep previewing</button>
   </div>
-  <p class="sheet-note">Secure checkout powered by Razorpay.</p>
+  <p class="sheet-note">Secure checkout by Razorpay. After payment, access prepares for a few seconds, then unlocks.</p>
+</div>
+
+<div class="prepare-overlay" id="prepareOverlay" hidden role="status" aria-live="polite">
+  <div class="prepare-card">
+    <div class="prepare-spinner" aria-hidden="true"></div>
+    <h3 class="prepare-title">Preparing your reader…</h3>
+    <p class="prepare-text">Unlocking access — almost ready.</p>
+  </div>
 </div>
 
 <div class="toast" id="toast">
   <span class="dot"></span>
-  <span id="toastText">Payment gateway coming soon.</span>
+  <span id="toastText">Secure payments ready.</span>
 </div>
 
 <script src="{% static 'js/payments.js' %}"></script>

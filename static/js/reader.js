@@ -8,13 +8,62 @@
   var slots = Array.prototype.slice.call(document.querySelectorAll(".page-slot"));
   var total = slots.length;
   var lockedIndex = total - 1;
-  var unlockKey = storageKey + ":unlocked";
+  var unlockKey = storageKey + ":access";
+  var legacyUnlockKey = storageKey + ":unlocked";
   var isUnlocked = false;
+  var accessToken = "";
   try {
-    isUnlocked = localStorage.getItem(unlockKey) === "1";
+    accessToken = localStorage.getItem(unlockKey) || "";
+    if (!accessToken && localStorage.getItem(legacyUnlockKey) === "1") {
+      // Legacy local unlock — keep reading until a paid token replaces it.
+      isUnlocked = true;
+    }
   } catch (err) {}
   if (isUnlocked) {
     lockedIndex = total + 1;
+  }
+
+  function applyUnlock() {
+    isUnlocked = true;
+    lockedIndex = total + 1;
+    if (pageCard) pageCard.classList.remove("is-locked");
+    updateChrome(current);
+  }
+
+  function accessUrlFor(token) {
+    var tpl =
+      document.body.getAttribute("data-payment-access-base") ||
+      "/payments/access/00000000-0000-0000-0000-000000000000/";
+    return tpl.replace("00000000-0000-0000-0000-000000000000", token);
+  }
+
+  function validateAccessToken(token) {
+    if (!token) return Promise.resolve(false);
+    return fetch(accessUrlFor(token), {
+      method: "GET",
+      credentials: "same-origin",
+      headers: { Accept: "application/json" },
+    })
+      .then(function (res) {
+        return res.json().then(function (data) {
+          return !!(res.ok && data && data.ok);
+        });
+      })
+      .catch(function () {
+        return false;
+      });
+  }
+
+  if (accessToken) {
+    validateAccessToken(accessToken).then(function (ok) {
+      if (ok) {
+        applyUnlock();
+      } else {
+        try {
+          localStorage.removeItem(unlockKey);
+        } catch (err) {}
+      }
+    });
   }
   var current = 0;
   var animating = false;
@@ -443,14 +492,15 @@
       bookSlug: slug,
       productType: "online",
       onSuccess: function (data) {
-        try {
-          localStorage.setItem(unlockKey, "1");
-        } catch (err) {}
-        isUnlocked = true;
-        lockedIndex = total + 1;
+        if (data && data.access_token) {
+          try {
+            localStorage.setItem(unlockKey, data.access_token);
+            localStorage.removeItem(legacyUnlockKey);
+          } catch (err) {}
+          accessToken = data.access_token;
+        }
+        applyUnlock();
         closePaywall();
-        pageCard.classList.remove("is-locked");
-        updateChrome(current);
         showToast((data && data.message) || "Unlocked — enjoy reading.");
         if (btn) {
           btn.disabled = false;
@@ -468,7 +518,7 @@
         }
       },
       onError: function (msg) {
-        showToast(msg || "Payment failed.");
+        showToast(msg || "Payment failed. You can retry safely.");
         if (btn) {
           btn.disabled = false;
           var priceEl = document.querySelector("#paywallSheet .value");

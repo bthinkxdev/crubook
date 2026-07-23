@@ -9,7 +9,12 @@ from .views import (
     ReaderView,
     contact_submit,
 )
-from .views_payments import create_payment_order, verify_payment
+from .views_payments import (
+    access_status,
+    create_payment_order,
+    download_purchased_pdf,
+    verify_payment,
+)
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
@@ -21,4 +26,14 @@ urlpatterns = [
     path("contact/", contact_submit, name="contact"),
     path("payments/create-order/", create_payment_order, name="payment_create_order"),
     path("payments/verify/", verify_payment, name="payment_verify"),
+    path(
+        "payments/download/<uuid:token>/",
+        download_purchased_pdf,
+        name="payment_download",
+    ),
+    path(
+        "payments/access/<uuid:token>/",
+        access_status,
+        name="payment_access",
+    ),
 ]

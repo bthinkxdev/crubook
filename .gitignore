@@ -3,5 +3,8 @@ __pycache__/
 .env
 .venv/
 venv/
+media/
+private_media/
 staticfiles/
 .DS_Store
+db.sqlite3

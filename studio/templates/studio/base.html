@@ -96,7 +96,15 @@
     <button class="btn btn-dark btn-block" id="payBtn">Pay ₹99</button>
     <button class="btn btn-outline btn-block" id="closeSheet">Not now</button>
   </div>
-  <p class="sheet-note">Secure checkout powered by Razorpay.</p>
+  <p class="sheet-note">Secure checkout by Razorpay. After payment, your PDF prepares for a few seconds, then downloads.</p>
+</div>
+
+<div class="prepare-overlay" id="prepareOverlay" hidden role="status" aria-live="polite">
+  <div class="prepare-card">
+    <div class="prepare-spinner" aria-hidden="true"></div>
+    <h3 class="prepare-title">Preparing your download…</h3>
+    <p class="prepare-text">Getting your PDF ready.</p>
+  </div>
 </div>
 {% endblock %}
 
