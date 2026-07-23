@@ -9,6 +9,7 @@ from .views import (
     ReaderView,
     contact_submit,
 )
+from .views_payments import create_payment_order, verify_payment
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
@@ -18,4 +19,6 @@ urlpatterns = [
     path("about/", AboutView.as_view(), name="about"),
     path("reader/", ReaderView.as_view(), name="reader"),
     path("contact/", contact_submit, name="contact"),
+    path("payments/create-order/", create_payment_order, name="payment_create_order"),
+    path("payments/verify/", verify_payment, name="payment_verify"),
 ]

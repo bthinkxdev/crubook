@@ -12,7 +12,10 @@
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 {% block extra_css %}{% endblock %}
 </head>
-<body class="{% block body_class %}{% endblock %}" data-contact-url="{% url 'contact' %}">
+<body class="{% block body_class %}{% endblock %}"
+      data-contact-url="{% url 'contact' %}"
+      data-payment-create-url="{% url 'payment_create_order' %}"
+      data-payment-verify-url="{% url 'payment_verify' %}">
 
 <header class="topbar" id="topbar">
   <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="sideMenu">
@@ -93,7 +96,7 @@
     <button class="btn btn-dark btn-block" id="payBtn">Pay ₹99</button>
     <button class="btn btn-outline btn-block" id="closeSheet">Not now</button>
   </div>
-  <p class="sheet-note">Payments coming soon.</p>
+  <p class="sheet-note">Secure checkout powered by Razorpay.</p>
 </div>
 {% endblock %}
 
@@ -143,6 +146,7 @@
   <span id="toastText"></span>
 </div>
 
+<script src="{% static 'js/payments.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 {% block extra_js %}{% endblock %}
 </body>

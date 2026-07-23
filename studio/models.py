@@ -23,11 +23,20 @@ class Book(models.Model):
         max_length=40,
         help_text='Display price, e.g. "₹99".',
     )
+    price_paise = models.PositiveIntegerField(
+        default=0,
+        help_text="Download price in paise for Razorpay (₹99 = 9900).",
+    )
     online_price = models.CharField(
         max_length=40,
         blank=True,
         default="₹49",
         help_text='Read-online price, e.g. "₹49". Leave blank to hide.',
+    )
+    online_price_paise = models.PositiveIntegerField(
+        default=0,
+        blank=True,
+        help_text="Read-online price in paise (₹49 = 4900). 0 to disable paid online.",
     )
     read_time = models.CharField(
         max_length=60,
@@ -74,6 +83,11 @@ class Book(models.Model):
     def get_absolute_url(self):
         return reverse("book_detail", kwargs={"slug": self.slug})
 
+    def amount_paise_for(self, product_type: str) -> int:
+        if product_type == "online":
+            return int(self.online_price_paise or 0)
+        return int(self.price_paise or 0)
+
 
 class Chapter(models.Model):
     book = models.ForeignKey(Book, related_name="chapters", on_delete=models.CASCADE)
@@ -111,3 +125,52 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f"{self.name} · {self.get_kind_display()} · {self.created_at:%Y-%m-%d}"
+
+
+class PurchaseOrder(models.Model):
+    DOWNLOAD = "download"
+    ONLINE = "online"
+    PRODUCT_CHOICES = [
+        (DOWNLOAD, "Download"),
+        (ONLINE, "Read Online"),
+    ]
+
+    CREATED = "created"
+    PAID = "paid"
+    FAILED = "failed"
+    STATUS_CHOICES = [
+        (CREATED, "Created"),
+        (PAID, "Paid"),
+        (FAILED, "Failed"),
+    ]
+
+    book = models.ForeignKey(
+        Book,
+        related_name="orders",
+        on_delete=models.PROTECT,
+    )
+    product_type = models.CharField(
+        max_length=20,
+        choices=PRODUCT_CHOICES,
+        default=DOWNLOAD,
+    )
+    amount_paise = models.PositiveIntegerField()
+    currency = models.CharField(max_length=3, default="INR")
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default=CREATED,
+    )
+    razorpay_order_id = models.CharField(max_length=64, unique=True)
+    razorpay_payment_id = models.CharField(max_length=64, blank=True)
+    razorpay_signature = models.CharField(max_length=255, blank=True)
+    buyer_email = models.EmailField(blank=True)
+    buyer_contact = models.CharField(max_length=20, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    paid_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.book.title} · {self.get_product_type_display()} · {self.status}"

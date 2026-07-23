@@ -8,6 +8,14 @@
   var slots = Array.prototype.slice.call(document.querySelectorAll(".page-slot"));
   var total = slots.length;
   var lockedIndex = total - 1;
+  var unlockKey = storageKey + ":unlocked";
+  var isUnlocked = false;
+  try {
+    isUnlocked = localStorage.getItem(unlockKey) === "1";
+  } catch (err) {}
+  if (isUnlocked) {
+    lockedIndex = total + 1;
+  }
   var current = 0;
   var animating = false;
   var chromeHidden = false;
@@ -418,10 +426,57 @@
   }
 
   document.getElementById("unlockBtn").addEventListener("click", function () {
-    closePaywall();
-    setTimeout(function () {
-      showToast("Payments are coming soon — thank you for your patience.");
-    }, 280);
+    var btn = document.getElementById("unlockBtn");
+    var slug =
+      (btn && btn.getAttribute("data-book-slug")) ||
+      document.body.getAttribute("data-book-id") ||
+      "";
+    if (!window.AuthorThinksPayments) {
+      showToast("Payment module failed to load.");
+      return;
+    }
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "Opening checkout…";
+    }
+    window.AuthorThinksPayments.startCheckout({
+      bookSlug: slug,
+      productType: "online",
+      onSuccess: function (data) {
+        try {
+          localStorage.setItem(unlockKey, "1");
+        } catch (err) {}
+        isUnlocked = true;
+        lockedIndex = total + 1;
+        closePaywall();
+        pageCard.classList.remove("is-locked");
+        updateChrome(current);
+        showToast((data && data.message) || "Unlocked — enjoy reading.");
+        if (btn) {
+          btn.disabled = false;
+          var priceEl = document.querySelector("#paywallSheet .value");
+          btn.textContent =
+            "Unlock for " + ((priceEl && priceEl.textContent) || "₹49");
+        }
+      },
+      onDismiss: function () {
+        if (btn) {
+          btn.disabled = false;
+          var priceEl = document.querySelector("#paywallSheet .value");
+          btn.textContent =
+            "Unlock for " + ((priceEl && priceEl.textContent) || "₹49");
+        }
+      },
+      onError: function (msg) {
+        showToast(msg || "Payment failed.");
+        if (btn) {
+          btn.disabled = false;
+          var priceEl = document.querySelector("#paywallSheet .value");
+          btn.textContent =
+            "Unlock for " + ((priceEl && priceEl.textContent) || "₹49");
+        }
+      },
+    });
   });
 
   /* Guidance overlay */

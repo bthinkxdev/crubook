@@ -264,11 +264,18 @@
       "Your own copy, formatted for a calm reading experience.";
     var product = el.getAttribute("data-sheet-product") || "Book";
     var price = el.getAttribute("data-sheet-price") || "";
+    var bookSlug = el.getAttribute("data-book-slug") || "";
+    var productType = el.getAttribute("data-product-type") || "download";
     if (sheetTitle) sheetTitle.textContent = title;
     if (sheetDesc) sheetDesc.textContent = desc;
     if (sheetProduct) sheetProduct.textContent = product;
     if (sheetPrice) sheetPrice.textContent = price;
-    if (payBtn) payBtn.textContent = price ? "Pay " + price : "Continue";
+    if (payBtn) {
+      payBtn.textContent = price ? "Pay " + price : "Continue";
+      payBtn.setAttribute("data-book-slug", bookSlug);
+      payBtn.setAttribute("data-product-type", productType);
+      payBtn.disabled = false;
+    }
     sheet.classList.add("open");
     backdrop.classList.add("open");
     document.body.style.overflow = "hidden";
@@ -300,10 +307,42 @@
 
   if (payBtn) {
     payBtn.addEventListener("click", function () {
-      closeSheetFn();
-      setTimeout(function () {
-        showToast("Payments are coming soon — thank you for your patience.");
-      }, 280);
+      var slug = payBtn.getAttribute("data-book-slug") || "";
+      var productType = payBtn.getAttribute("data-product-type") || "download";
+      if (!slug) {
+        showToast("Please choose a book again.");
+        return;
+      }
+      if (!window.AuthorThinksPayments) {
+        showToast("Payment module failed to load.");
+        return;
+      }
+
+      payBtn.disabled = true;
+      var original = payBtn.textContent;
+      payBtn.textContent = "Opening checkout…";
+
+      window.AuthorThinksPayments.startCheckout({
+        bookSlug: slug,
+        productType: productType,
+        onSuccess: function (data) {
+          closeSheetFn();
+          showToast(
+            (data && data.message) || "Payment successful — thank you."
+          );
+          payBtn.disabled = false;
+          payBtn.textContent = original;
+        },
+        onDismiss: function () {
+          payBtn.disabled = false;
+          payBtn.textContent = original;
+        },
+        onError: function (msg) {
+          showToast(msg || "Payment failed.");
+          payBtn.disabled = false;
+          payBtn.textContent = original;
+        },
+      });
     });
   }
 

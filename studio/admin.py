@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import Book, Chapter, ContactMessage
+from .models import Book, Chapter, ContactMessage, PurchaseOrder
 
 
 class ChapterInline(admin.TabularInline):
@@ -16,6 +16,7 @@ class BookAdmin(admin.ModelAdmin):
         "cover_thumb",
         "title",
         "price",
+        "price_paise",
         "is_available",
         "is_featured",
         "has_reader",
@@ -47,7 +48,9 @@ class BookAdmin(admin.ModelAdmin):
             {
                 "fields": (
                     "price",
+                    "price_paise",
                     "online_price",
+                    "online_price_paise",
                     "read_time",
                     "edition",
                 )
@@ -81,6 +84,45 @@ class BookAdmin(admin.ModelAdmin):
             '<img src="{}" alt="" style="height:48px;width:34px;object-fit:cover;border-radius:6px;" />',
             obj.cover.url,
         )
+
+
+@admin.register(PurchaseOrder)
+class PurchaseOrderAdmin(admin.ModelAdmin):
+    list_display = (
+        "razorpay_order_id",
+        "book",
+        "product_type",
+        "amount_display",
+        "status",
+        "buyer_email",
+        "created_at",
+        "paid_at",
+    )
+    list_filter = ("status", "product_type", "created_at")
+    search_fields = (
+        "razorpay_order_id",
+        "razorpay_payment_id",
+        "buyer_email",
+        "book__title",
+    )
+    readonly_fields = (
+        "book",
+        "product_type",
+        "amount_paise",
+        "currency",
+        "status",
+        "razorpay_order_id",
+        "razorpay_payment_id",
+        "razorpay_signature",
+        "buyer_email",
+        "buyer_contact",
+        "created_at",
+        "paid_at",
+    )
+
+    @admin.display(description="Amount")
+    def amount_display(self, obj):
+        return f"₹{obj.amount_paise / 100:.2f}"
 
 
 @admin.register(ContactMessage)

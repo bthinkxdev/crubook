@@ -11,7 +11,11 @@
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 <link rel="stylesheet" href="{% static 'css/reader.css' %}">
 </head>
-<body class="reader-body" data-book-id="questioning-the-marriage-system">
+<body class="reader-body"
+      data-book-id="{% if book %}{{ book.slug }}{% else %}questioning-the-marriage-system{% endif %}"
+      data-payment-create-url="{% url 'payment_create_order' %}"
+      data-payment-verify-url="{% url 'payment_verify' %}">
+{% csrf_token %}
 
 <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
 <div class="reader-glow" aria-hidden="true"></div>
@@ -191,14 +195,20 @@
   <p>Continue reading online for a one-time fee — no subscription, no account needed.</p>
   <div class="sheet-row">
     <span class="label">Read Online — full access</span>
-    <span class="value">₹49</span>
+    <span class="value">{% if book and book.online_price %}{{ book.online_price }}{% else %}₹49{% endif %}</span>
   </div>
   <div class="sheet-actions">
-    <button class="btn btn-dark btn-block" id="unlockBtn">Unlock for ₹49</button>
-    <a href="{% url 'book' %}#pricing" class="btn btn-outline btn-block">Prefer to download instead? ₹99</a>
-    <button class="btn btn-outline btn-block" id="closePaywall">Keep previewing</button>
+    <button
+      class="btn btn-dark btn-block"
+      id="unlockBtn"
+      type="button"
+      data-book-slug="{% if book %}{{ book.slug }}{% else %}questioning-the-marriage-system{% endif %}"
+      data-product-type="online"
+    >Unlock for {% if book and book.online_price %}{{ book.online_price }}{% else %}₹49{% endif %}</button>
+    <a href="{% url 'books' %}" class="btn btn-outline btn-block">Prefer to download instead?</a>
+    <button class="btn btn-outline btn-block" id="closePaywall" type="button">Keep previewing</button>
   </div>
-  <p class="sheet-note">Payments are securely handled at checkout. Gateway integration coming soon.</p>
+  <p class="sheet-note">Secure checkout powered by Razorpay.</p>
 </div>
 
 <div class="toast" id="toast">
@@ -206,6 +216,7 @@
   <span id="toastText">Payment gateway coming soon.</span>
 </div>
 
+<script src="{% static 'js/payments.js' %}"></script>
 <script src="{% static 'js/reader.js' %}"></script>
 </body>
 </html>
