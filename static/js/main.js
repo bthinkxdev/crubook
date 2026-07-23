@@ -154,7 +154,7 @@
         target &&
         target.closest &&
         target.closest(
-          "button, input, textarea, select, label, [data-open-sheet], .bag-btn"
+          "button, input, textarea, select, label, [data-open-sheet], .bag-btn, .listing-actions .btn"
         )
       );
     }

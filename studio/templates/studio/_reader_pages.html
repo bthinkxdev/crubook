@@ -1,0 +1,482 @@
+{# Page slots only — included inside #pageCard. JS assigns data-page. #}
+
+{# ===== FREE PREVIEW ===== #}
+
+<div class="page-slot title-page active" data-access="free" data-chapter="Cover" data-section="cover">
+  <p class="reader-studio">author.thinks</p>
+  <h1>Questioning the<br>Marriage System</h1>
+  <p class="sub">Rethinking Tradition, Equality, and the Freedom to Choose</p>
+  <p class="by">Veena J V · First Edition</p>
+  <button type="button" class="btn btn-dark begin-btn" id="beginBtn">Begin reading <span aria-hidden="true">→</span></button>
+  <p class="begin-hint">A calm reading experience</p>
+</div>
+
+<div class="page-slot" data-access="free" data-chapter="Copyright" data-section="front">
+  <div class="page-eyebrow">Copyright</div>
+  <div class="page-body">
+    <p>First published by Independently 2026</p>
+    <p>Copyright © 2026 by VEENA J V</p>
+    <p>All rights reserved. No part of this publication may be reproduced, stored, or transmitted in any form or by any means, electronic, mechanical, photocopying, recording, scanning, or otherwise without written permission from the publisher. It is illegal to copy this book, post it to a website, or distribute it by any other means without permission.</p>
+    <p>VEENA J V asserts the moral right to be identified as the author of this work.</p>
+    <p>The views expressed in this book are the author’s personal opinions and reflections. They are intended to encourage thoughtful discussion and should not be interpreted as legal, psychological, or professional advice.</p>
+    <p>First edition</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="free" data-chapter="Contents" data-section="front">
+  <div class="page-eyebrow">Contents</div>
+  <div class="page-body">
+    <p>A Note from the Author</p>
+    <p>Dedication</p>
+    <p>Introduction</p>
+    <p>1 · Chapter 1: Why I Wrote This Book</p>
+    <p>2 · Chapter 2: The Roles We Inherit</p>
+    <p class="italic-line">The System Doesn’t Expect Only Women to Sacrifice</p>
+    <p>3 · Chapter 3: What Is Marriage?</p>
+    <p>4 · Chapter 4: What Needs to Change</p>
+    <p>5 · Before You Close This Book</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="free" data-chapter="A Note from the Author" data-section="front" data-toc-note="To the Reader">
+  <div class="page-eyebrow">A Note from the Author</div>
+  <h2 class="page-chapter-title">To the Reader</h2>
+  <div class="page-body">
+    <p>This book is not against marriage. It is about questioning the system that surrounds marriage — the expectations, traditions, and roles that many of us inherit without ever choosing.</p>
+    <p>These pages are not written as absolute truths. They are my thoughts, my observations, and my experiences.</p>
+    <p>You may agree with me. You may disagree with me. My only hope is that this book encourages you to pause, reflect, and ask yourself questions you may never have asked before.</p>
+    <p>Thank you for reading.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="free" data-chapter="Dedication" data-section="front">
+  <div class="page-eyebrow">Dedication</div>
+  <div class="page-body">
+    <p class="italic-line pull-quote">“To the person who unknowingly inspired this journey of questioning.”</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="free" data-chapter="Introduction" data-section="intro">
+  <div class="page-eyebrow">Introduction · I</div>
+  <div class="page-body">
+    <p>The problem is not marriage itself. The problem is the system, traditions, and expectations that many societies have attached to it.</p>
+    <p>This book is not an attempt to convince you to reject marriage. It is an invitation to question the system we have inherited.</p>
+    <p>For generations, many of us have followed traditions simply because they have always existed. We often imitate what we see around us without asking whether they are fair, equal, or even necessary.</p>
+    <p>We call these practices “normal,” but normal does not always mean just.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="free" data-chapter="Introduction" data-section="intro">
+  <div class="page-eyebrow">Introduction · II</div>
+  <div class="page-body">
+    <p>Marriage itself is not the problem. A relationship built on love, respect, equality, and shared responsibility can be deeply meaningful.</p>
+    <p>What concerns me is the system that often surrounds marriage — the expectations placed on women, the acceptance of unequal responsibilities, the normalization of dowry in some communities, the assumption that caregiving is women’s work, and the idea that sacrifice is simply part of being a wife.</p>
+    <p>These expectations are not inevitable. They were created by people, and people can change them. If a tradition brings dignity, equality, and happiness, it deserves to continue. If it creates inequality or prevents people from living freely, we should have the courage to question it.</p>
+    <p class="italic-line pull-quote">“Change does not begin by rejecting everything from the past. It begins by asking whether what we inherited is still the best way forward.”</p>
+  </div>
+</div>
+
+{# ===== PAYWALL ===== #}
+
+<div class="page-slot paywall-center" data-access="gate" data-chapter="Continue" data-section="locked">
+  <div class="paywall-icon" aria-hidden="true">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="2" stroke="white" stroke-width="1.6"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg>
+  </div>
+  <h2>You've reached the end of your free preview</h2>
+  <p>Unlock to continue with the full book — every chapter, from the conversation that changed everything to the closing letter.</p>
+  <button type="button" class="btn btn-dark" id="paywallOpenBtn">Continue reading — {% if book and book.online_price %}{{ book.online_price }}{% else %}₹49{% endif %}</button>
+</div>
+
+{# ===== PAID — CHAPTER 1 ===== #}
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter One" data-section="ch1">
+  <div class="page-eyebrow">Chapter One</div>
+  <h2 class="page-chapter-title">Why I Wrote This Book</h2>
+  <div class="page-body">
+    <p>I didn’t wake up one morning and decide to question the marriage system. This thought was built slowly, over years, through the things I saw, the conversations I heard, and the questions no one around me seemed willing to ask.</p>
+    <p>I grew up in a family where certain responsibilities were never questioned. Household work belonged to women. It wasn’t discussed; it was simply accepted as the natural order of life.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter One" data-section="ch1">
+  <div class="page-eyebrow">Chapter One · continued</div>
+  <div class="page-body">
+    <p>If someone wanted a glass of water, they called a woman. When guests arrived, the women rushed to the kitchen. If the house needed cleaning, cooking, washing, or organizing, it was expected that the women would take care of it. The men were rarely expected to carry the same responsibilities.</p>
+    <p>What affected me even more was that the women themselves accepted this reality. Mothers prepared their daughters for it, not because they wanted to limit them, but because they believed this was how life worked.</p>
+    <p>They taught them to cook, clean, adjust, compromise, and sacrifice — not as choices, but as responsibilities that would one day become unavoidable.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter One" data-section="ch1">
+  <div class="page-eyebrow">Chapter One · continued</div>
+  <div class="page-body">
+    <p>As I grew older, I began asking myself a simple question.</p>
+    <p class="italic-line">Why?</p>
+    <p>Why were these expectations placed on one gender and not the other?</p>
+    <p>Why was sacrifice considered a woman’s duty but never recognized as work?</p>
+    <p>These questions stayed with me, but I had no answers.</p>
+    <p>Then one conversation became the turning point.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter One" data-section="ch1">
+  <div class="page-eyebrow">Chapter One · continued</div>
+  <div class="page-body">
+    <p>Someone I deeply cared about spoke about dowry. He explained it as though it were practical, almost reasonable. According to him, families gave dowry because women would depend on their husbands after marriage. If a woman or her family did not have strong financial standing, she would naturally look for a husband from a similar financial background.</p>
+    <p>The words were calm. The logic sounded ordinary. Yet something inside me broke.</p>
+    <p>I wasn’t shocked because I had never heard of dowry before. I had. What hurt me was realising how easily people could explain it as if it were simply another part of life.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter One" data-section="ch1">
+  <div class="page-eyebrow">Chapter One · continued</div>
+  <div class="page-body">
+    <p>As if dependence was expected. As if a woman’s unpaid work inside a home carried no value at all. As if years of cooking, cleaning, raising children, caring for elderly parents, supporting a spouse through difficult times, and holding a family together could never be counted as real contributions.</p>
+    <p>That conversation stayed with me long after it ended. The words repeated in my mind for days. Weeks. Months.</p>
+    <p>That conversation didn’t change my opinion overnight. It changed the questions I started asking.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter One" data-section="ch1">
+  <div class="page-eyebrow">Chapter One · continued</div>
+  <div class="page-body">
+    <p>I started observing the world around me more carefully. I watched women wake up before everyone else and sleep after everyone else. I watched them remember birthdays, doctor’s appointments, grocery lists, school meetings, medicines, and family responsibilities that no one else seemed to notice. I watched their work disappear because it was considered “normal.”</p>
+    <p>No salary. No promotion. Very little appreciation. Just expectation.</p>
+    <p>That was the moment I realised my discomfort was not with weddings, love, or commitment. It was with the system surrounding marriage — the expectations, the unequal responsibilities, the invisible labour, the assumption that one person should give more simply because of their gender.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter One" data-section="ch1">
+  <div class="page-eyebrow">Chapter One · continued</div>
+  <div class="page-body">
+    <p>This book is not an attack on people who choose to marry. Many marriages are loving, respectful, and equal. If two people freely choose that life and build it on mutual respect, I genuinely hope they find happiness.</p>
+    <p>This book is about something different. It is about questioning ideas that society rarely asks us to examine. It is about asking whether the system surrounding marriage, as it exists in many cultures today, truly allows both partners to live as equals.</p>
+    <p>You may agree with me. You may disagree completely. Either response is welcome.</p>
+    <p>My only hope is that, by the time you finish reading, you will have asked yourself questions you may never have asked before.</p>
+    <p class="italic-line">Because every meaningful change begins with one simple act: questioning what we have always been told to accept.</p>
+  </div>
+</div>
+
+{# ===== PAID — CHAPTER 2 ===== #}
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Two" data-section="ch2">
+  <div class="page-eyebrow">Chapter Two</div>
+  <h2 class="page-chapter-title">The Roles We Inherit</h2>
+  <div class="page-body">
+    <p>I used to believe that time would change everything. As generations passed, I thought the old expectations would slowly disappear. In many places, they have. I know families where daughters and sons are raised equally, where household responsibilities are shared, and where marriage is built on partnership rather than sacrifice.</p>
+    <p>This chapter is not about those families. It is about the countless others where the old system still survives… sometimes quietly, sometimes openly.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Two" data-section="ch2">
+  <div class="page-eyebrow">Chapter Two · continued</div>
+  <div class="page-body">
+    <p>Growing up, I learned to cook. My mother taught me how to cook, clean, and take care of a home. She did it with love, believing she was preparing me for life. She wasn’t trying to limit me. She was passing on what she had been taught, just as generations before her had done.</p>
+    <p>My brother’s childhood was different — not because anyone loved him more or expected less of him, but because the system had already decided what each of us was supposed to learn. Without anyone questioning it, I was prepared to become someone’s caregiver, while he was simply allowed to grow.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Two" data-section="ch2">
+  <div class="page-eyebrow">Chapter Two · continued</div>
+  <div class="page-body">
+    <p>As I grew older, I realised something that quietly broke my heart. Girls are often taught how to care for everyone else long before they are taught how to care for themselves.</p>
+    <p>We learn to notice when someone is tired, hungry, upset, or in need. We learn to put others first, to adjust, to compromise, and to sacrifice. We are praised for being selfless.</p>
+    <p>But very few of us are taught that our own dreams matter too. That resting is not selfish. That saying “no” is not disrespectful. That taking care of ourselves is just as important as taking care of the people we love.</p>
+    <p>Perhaps that is the lesson I wish more daughters and sons would grow up hearing.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Two" data-section="ch2">
+  <div class="page-eyebrow">Chapter Two · continued</div>
+  <div class="page-body">
+    <p>And cooking, cleaning, managing money, caring for yourself, and maintaining a home are not “women’s skills.”</p>
+    <p class="italic-line">They are life skills.</p>
+    <p>Every adult should know them.</p>
+    <p>Then there is another sentence that almost every girl hears while growing up: “After marriage, that will be your home.”</p>
+    <p>I have always wondered what that really means. If the house where I was born is no longer my home, then where do I truly belong? Why should I have to leave behind everything familiar and start over simply because I got married? And why is adjustment spoken of as though it is a woman’s duty?</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Two" data-section="ch2">
+  <div class="page-eyebrow">Chapter Two · continued</div>
+  <div class="page-body">
+    <p>She should adjust. She should compromise. She should understand. She should sacrifice.</p>
+    <p>But why are these expectations so rarely placed equally on both partners?</p>
+    <p>A woman is someone’s daughter before she becomes someone’s wife. She has dreams before she has responsibilities. She has ambitions before she has expectations placed upon her. Yet, in many families, she is taught that love is measured by how much of herself she is willing to give away.</p>
+    <p>I often wonder who decided that this was the right way to build a family. Who decided that one person’s dreams should become smaller so everyone else’s lives could become easier? Who decided that caring for everyone else should matter more than caring for yourself?</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Two" data-section="ch2">
+  <div class="page-eyebrow">Chapter Two · continued</div>
+  <div class="page-body">
+    <p>Perhaps these traditions were created in a different time, under different circumstances. But every generation has a responsibility to ask whether the systems it inherits are still fair.</p>
+    <p>Not every tradition deserves to continue simply because it is old. Some traditions preserve love. Others preserve inequality. We should know the difference.</p>
+    <p>I am not asking women to stop caring for their families. I am asking why that responsibility is still treated as theirs alone. I am not questioning love. I am questioning unequal expectations.</p>
+    <p>Perhaps the greatest lesson many of us are taught is that a good life is one spent living for others. But I wonder if there is another way.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Two" data-section="ch2">
+  <div class="page-eyebrow">Chapter Two · continued</div>
+  <div class="page-body">
+    <p>What if we taught every child — regardless of gender — to care for themselves, respect others, share responsibilities, and pursue their own dreams without guilt?</p>
+    <p>Would marriage become weaker?</p>
+    <p>Or would it finally become what it was always meant to be — a partnership between two equals, not a system where one person is expected to carry more simply because of who they are?</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Two" data-section="ch2-section">
+  <div class="page-eyebrow">Chapter Two · a closer look</div>
+  <h2 class="page-chapter-title">The System Doesn’t Expect Only Women to Sacrifice</h2>
+  <div class="page-body">
+    <p>As I continued questioning the expectations placed on women, I realised something important. The same system that tells women how they should live also tells men who they must become.</p>
+    <p>From childhood, boys are often taught that their worth is measured by what they earn. They are expected to become the providers. To be strong. To never cry. To carry every financial burden. To protect everyone. To solve every problem. To keep moving forward, no matter how exhausted they are.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Two" data-section="ch2-section">
+  <div class="page-eyebrow">Chapter Two · continued</div>
+  <div class="page-body">
+    <p>Just as girls are taught that caring for others is their responsibility, boys are often taught that providing for others is theirs. Neither child is asked what they truly want. The decision has already been made for them.</p>
+    <p>One is prepared to become the caregiver. The other is prepared to become the provider. And both are told that this is simply how life works.</p>
+    <p>Perhaps this made sense in another time. There was a period in history when most women had very limited access to education, property, employment, or financial independence. In many societies, men worked outside the home while women managed the household because there were few alternatives.</p>
+    <p class="italic-line">But the world has changed.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Two" data-section="ch2-section">
+  <div class="page-eyebrow">Chapter Two · continued</div>
+  <div class="page-body">
+    <p>Women study. Women build careers. Women become entrepreneurs, scientists, doctors, engineers, artists, teachers, police officers, judges, and leaders. Men are becoming more involved fathers. More men are learning to cook, clean, and share household responsibilities.</p>
+    <p>Society is already changing. Yet many expectations have remained exactly where they were decades ago.</p>
+    <p>We celebrate women for entering the workforce. But we still expect many of them to carry almost all of the responsibilities at home. She works a full day. Then she comes home and begins another shift — cooking, cleaning, remembering birthdays, helping children with homework, taking care of elderly parents, planning meals, managing emotions, making sure everyone else is comfortable.</p>
+    <p>This work rarely appears on a salary slip. There are no promotions. No annual appraisals. No retirement benefits. Yet families depend on it every single day.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Two" data-section="ch2-section">
+  <div class="page-eyebrow">Chapter Two · continued</div>
+  <div class="page-body">
+    <p>At the same time, many men carry a different burden. They feel pressured to earn more. To never lose their job. To hide their fears. To believe that asking for help makes them weak. To think that if they fail financially, they have failed as husbands, fathers, or sons.</p>
+    <p>Is that freedom? Or is it another form of expectation?</p>
+    <p>I often wonder how many men secretly wish someone had told them that they didn’t have to carry the entire weight of a family alone. And how many women secretly wish someone had told them that caring for everyone else should never require forgetting themselves.</p>
+    <p>The tragedy is that both are trying to meet expectations they never created.</p>
+    <p class="italic-line pull-quote">The system tells women, “Your value comes from how much you sacrifice.” The system tells men, “Your value comes from how much you provide.”</p>
+    <p>Both messages reduce human beings to roles. Neither asks who they truly are.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Two" data-section="ch2-section">
+  <div class="page-eyebrow">Chapter Two · continued</div>
+  <div class="page-body">
+    <p>Imagine a different beginning. Imagine every child, regardless of gender, learning the same life skills. Every child learns to cook. Every child learns to manage money. Every child learns to clean. Every child learns to express emotions without shame. Every child learns to respect the dreams of others.</p>
+    <p>Every child grows up knowing that taking care of a home is not a woman’s duty. Providing financially is not a man’s duty. Both are simply responsibilities of adulthood.</p>
+    <p>Then marriage would no longer be an arrangement where two predefined roles come together. It would become a partnership.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Two" data-section="ch2-section">
+  <div class="page-eyebrow">Chapter Two · continued</div>
+  <div class="page-body">
+    <p>Some couples may decide that one person stays home while the other works. Others may both choose careers. Some may alternate responsibilities depending on their circumstances. None of these choices are wrong — provided they are freely made, discussed openly, and respected equally.</p>
+    <p>That, to me, is what equality looks like. Not making men and women identical. But giving both the freedom to choose their roles instead of inheriting them.</p>
+    <p>This is why I keep saying that my disagreement is not with marriage itself. Marriage is simply a relationship between two people.</p>
+    <p>The problem begins when society writes the rules before those two people ever get a chance to write their own.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Two" data-section="ch2-section">
+  <div class="page-eyebrow">Chapter Two · continued</div>
+  <div class="page-body">
+    <p>Perhaps the next generation does not need a new definition of love. Perhaps it simply needs the freedom to define marriage for itself.</p>
+    <p>Because traditions should guide us, not imprison us. And a system created by people can also be changed by people.</p>
+    <p class="italic-line pull-quote">Change begins the moment we stop asking, “Who is supposed to do this?” and start asking, “How can we build a life that is fair for both of us?”</p>
+  </div>
+</div>
+
+{# ===== PAID — CHAPTER 3 ===== #}
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Three" data-section="ch3">
+  <div class="page-eyebrow">Chapter Three</div>
+  <h2 class="page-chapter-title">What Is Marriage?</h2>
+  <div class="page-body">
+    <p>Is it a promise? A legal contract? A religious ceremony? A lifelong commitment? A partnership? An agreement between two families?</p>
+    <p>Or is it all of these at once?</p>
+    <p>If someone asked me this question a few years ago, my answer would have been simple. Marriage is when two people fall in love and decide to spend the rest of their lives together. That is what I believed. That is what many of us are taught to believe.</p>
+    <p>But as I grew older, I realised that reality is often much more complicated. So I asked myself a question that seemed surprisingly difficult to answer.</p>
+    <p class="italic-line">What is marriage?</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Three" data-section="ch3">
+  <div class="page-eyebrow">Chapter Three · continued</div>
+  <div class="page-body">
+    <p>The more I thought about it, the more I realized that everyone defines marriage differently. Ask a child what marriage is, and they might describe a beautiful wedding. Ask parents, and they may talk about responsibility. Ask grandparents, and they may speak about tradition. Ask society, and it often speaks about settling down, having children, and building a family.</p>
+    <p>Each answer is different. None of them are completely wrong. But together they reveal something important.</p>
+    <p>Marriage is, at its heart, a relationship between two people. But in many societies, it also carries the hopes of parents, the expectations of relatives, cultural traditions, religious beliefs, financial responsibilities, and social status. Sometimes it even carries the burden of preserving family honour.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Three" data-section="ch3">
+  <div class="page-eyebrow">Chapter Three · continued</div>
+  <div class="page-body">
+    <p>That made me wonder. When two people get married, whose life are they actually beginning? Their own? Or the life that everyone else has already imagined for them?</p>
+    <p>Perhaps this is one reason many couples struggle. Before they have the chance to truly understand each other, they are expected to satisfy countless expectations that existed long before they met.</p>
+    <p>Who cooks? Who earns more? Who leaves their home? Who changes their surname? Who sacrifices their career? Who cares for aging parents? Who makes the final decisions?</p>
+    <p>These questions are often answered before the couple even has the chance to answer them for themselves. Not because anyone is forcing them individually. But because the system quietly whispers, “This is how it has always been.”</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Three" data-section="ch3">
+  <div class="page-eyebrow">Chapter Three · continued</div>
+  <div class="page-body">
+    <p>The more I observed marriage around me, the more I realized that many people are not choosing their roles. They are inheriting them.</p>
+    <p>And perhaps that is what troubles me the most. Marriage should be built by the two people entering it — not by expectations written decades or even centuries before they were born.</p>
+    <p>I believe every couple should have the freedom to decide what their marriage looks like. Who cooks. Who works. Who stays home. Whether they both work. Whether they have children. Whether they share finances. Whether they divide responsibilities differently.</p>
+    <p>None of these choices should be decided by gender. They should be decided by conversation.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Three" data-section="ch3">
+  <div class="page-eyebrow">Chapter Three · continued</div>
+  <div class="page-body">
+    <p>Marriage, at its best, is not about following a script. It is about writing your own.</p>
+    <p>Perhaps that is the question I hope every reader asks after this chapter.</p>
+    <p>If every tradition disappeared tomorrow… If no one told us how a husband should behave… If no one told us how a wife should behave… What kind of marriage would we choose to build?</p>
+    <p class="italic-line pull-quote">Maybe the answer to that question tells us more about marriage than any definition ever could.</p>
+  </div>
+</div>
+
+{# ===== PAID — CHAPTER 4 ===== #}
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Four" data-section="ch4">
+  <div class="page-eyebrow">Chapter Four</div>
+  <h2 class="page-chapter-title">What Needs to Change</h2>
+  <div class="page-body">
+    <p>When I look at this system, I don’t see winners. I see people carrying responsibilities that slowly become identities.</p>
+    <p>A man spends decades believing that his love is measured by how much money he brings home. He works longer hours, ignores his health, buries his emotions, and tells himself that one day he will finally have time to live.</p>
+    <p>A woman spends decades believing that her love is measured by how much she gives away. She cares for everyone, remembers everything, sacrifices quietly, and convinces herself that her dreams can wait until tomorrow.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Four" data-section="ch4">
+  <div class="page-eyebrow">Chapter Four · continued</div>
+  <div class="page-body">
+    <p>Years pass. The children grow up. Some responsibilities begin to fade. And then, for the first time in years, they stop and look at each other.</p>
+    <p>One says, “I spent my whole life working for this family.” The other thinks, “I spent my whole life taking care of this family.”</p>
+    <p>Neither statement is completely wrong. Yet both feel unseen.</p>
+    <p>The work of one was measured in income. The work of the other was often invisible. Instead of feeling like partners, they may begin to feel as though they have been keeping separate accounts of sacrifice.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Four" data-section="ch4">
+  <div class="page-eyebrow">Chapter Four · continued</div>
+  <div class="page-body">
+    <p>That is not the kind of life I want us to inherit. A family should never become a place where people compete over who sacrificed more. It should be a place where no one is expected to lose themselves in the first place.</p>
+    <p>Life is precious because it is limited. We each get one chance to live it. A hundred years from now, very few people will remember how many extra hours we worked, how many meals we cooked, or how many times we silently put ourselves last.</p>
+    <p>But we will have lived that life. The question is not whether we fulfilled every expectation placed upon us. The question is whether we truly lived.</p>
+    <p>Did we become the people we wanted to be? Did we chase our dreams without guilt? Did we build relationships based on love instead of obligation? Did we allow the people we loved to remain themselves?</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Four" data-section="ch4">
+  <div class="page-eyebrow">Chapter Four · continued</div>
+  <div class="page-body">
+    <p>To me, that is the change we need. Not a world where women become like men. Not a world where men become like women. But a world where neither is trapped by roles they never chose.</p>
+    <p>A world where marriage, if two people choose it, is built on conversation instead of assumption. On shared responsibility instead of predefined duty. On respect instead of expectation. On freedom instead of sacrifice.</p>
+    <p class="italic-line">Because love should never require someone to disappear.</p>
+    <p>The strongest families are not built when one person gives up everything for the other. They are built when two whole people walk beside each other, making room for each other to grow, to dream, and to truly live.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Four" data-section="ch4">
+  <div class="page-eyebrow">Chapter Four · continued</div>
+  <div class="page-body">
+    <p>Perhaps that is the system worth passing on to the next generation. But systems do not change on their own. They change because ordinary people choose to live differently.</p>
+    <p>Don’t wait for society to change first. Don’t wait for traditions to disappear on their own. Don’t wait for someone else to question what you already know feels unfair.</p>
+    <p class="italic-line">Be the beginning of the change.</p>
+    <p>If you become a parent one day, teach your children that kindness has no gender. Teach every child to cook, to care, to dream, to earn, to express emotions, and to respect another person’s individuality.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Four" data-section="ch4">
+  <div class="page-eyebrow">Chapter Four · continued</div>
+  <div class="page-body">
+    <p>If you choose to marry, build your relationship through conversations instead of assumptions. Create your own rules instead of blindly inheriting old ones.</p>
+    <p>Leave room for both dreams, not just one. Leave room for two voices, not just one. Leave room for two complete human beings.</p>
+    <p>Every generation inherits a system. Every generation also has the power to improve it.</p>
+    <p>Perhaps our greatest responsibility is not to preserve every tradition exactly as we received it, but to pass on something better.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Four" data-section="ch4">
+  <div class="page-eyebrow">Chapter Four · continued</div>
+  <div class="page-body">
+    <p>I hope that one day our children and grandchildren will read about the inequalities we accepted and wonder, “Did people really live like that?”</p>
+    <p>I hope those expectations become history rather than habit.</p>
+    <p>I hope the next generation grows up believing that love is partnership, not sacrifice; respect is mutual, not earned through suffering; and marriage, if they choose it, is a place where both people are free to become more of themselves, not less.</p>
+    <p class="italic-line pull-quote">“That is the future I hope we create. And it begins with the choices we make today.”</p>
+  </div>
+</div>
+
+{# ===== PAID — CHAPTER 5 / CLOSING ===== #}
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Five" data-section="ch5">
+  <div class="page-eyebrow">Chapter Five</div>
+  <h2 class="page-chapter-title">Before You Close This Book</h2>
+  <div class="page-body">
+    <p>Before you return to your everyday life, I want to ask you one last question.</p>
+    <p>Not about marriage. Not about society. Not about tradition.</p>
+    <p class="italic-line">About you.</p>
+    <p>Long before life became a list of responsibilities, before expectations found their way into your heart, before you learned to put everyone else first — what did you dream of?</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Five" data-section="ch5">
+  <div class="page-eyebrow">Chapter Five · continued</div>
+  <div class="page-body">
+    <p>Maybe it was a small house with a garden. Maybe it was travelling the world. Maybe it was writing a book. Maybe it was opening a little cafe, painting every day, climbing mountains, learning an instrument, or simply waking up each morning feeling at peace.</p>
+    <p>Whatever it was… Does that dream still live inside you? Or did you quietly bury it beneath words like later, someday, and after everyone else is settled?</p>
+    <p>For me, my dream is simple. One day, I want a home. Not a home built to impress anyone. Not a home built for society’s approval. A home that feels like me.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Five" data-section="ch5">
+  <div class="page-eyebrow">Chapter Five · continued</div>
+  <div class="page-body">
+    <p>A place where I can breathe deeply after a long day. A place that carries warmth instead of expectations. A cozy corner where silence feels comforting rather than lonely.</p>
+    <p>A home with books that have shaped me. Windows that welcome the morning light. Plants that remind me that life keeps growing.</p>
+    <p>And on one wall… a large portrait of myself. A reminder of the woman who chose to build that life. The woman who refused to disappear. The woman who chose to live before it was too late.</p>
+    <p>I hope that, wherever life takes me, I never have to bury that dream. And I hope you never have to bury yours.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Five" data-section="ch5">
+  <div class="page-eyebrow">Chapter Five · continued</div>
+  <div class="page-body">
+    <p>Because the truth is… No one else can live your life for you. No one else can dream your dreams. No one else can become the person you were meant to be.</p>
+    <p>The world may celebrate your sacrifices. But your soul will always remember the life you didn’t live.</p>
+    <p>So don’t wait for permission. Don’t wait for the perfect moment. Don’t wait until life is almost over to ask yourself what would have made you happy.</p>
+    <p>Choose yourself, too. Not instead of the people you love… but alongside them. Because choosing yourself is not selfish. It is how you remain alive while loving others.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Five" data-section="ch5">
+  <div class="page-eyebrow">Chapter Five · continued</div>
+  <div class="page-body">
+    <p>If this book has reached even a small corner of your heart, I have one final request.</p>
+    <p>Write to me. Not to tell me whether you agreed or disagreed. Tell me something much more personal.</p>
+    <p>What is the one dream that belongs only to you? The dream no one else can dream on your behalf. The dream no amount of money can buy. The dream that still whispers to you when the world becomes quiet.</p>
+    <p>Send it to me. Perhaps, by sharing it, you’ll make one promise — not to me, but to yourself. That you won’t let it disappear.</p>
+    <p class="italic-line">Email me at: authurveena@gmail.com</p>
+    <p>I’d love to read your dream. And I hope, years from now, you’ll be living it.</p>
+  </div>
+</div>
+
+<div class="page-slot" data-access="paid" data-chapter="Chapter Five" data-section="ch5">
+  <div class="page-eyebrow">Chapter Five · the end</div>
+  <div class="page-body">
+    <p class="italic-line pull-quote">This conversation does not end with this book. Perhaps it begins here.</p>
+  </div>
+</div>

@@ -28,7 +28,7 @@
           data-sheet-price="{{ book.price }}"
         >Download — {{ book.price }}</button>
         {% if book.has_reader and book.online_price %}
-        <a href="{% url 'reader' %}" class="btn btn-outline">Read Online — {{ book.online_price }}</a>
+        <a href="{% url 'reader' %}" class="btn btn-outline">Read Online</a>
         {% endif %}
       </div>
       <div class="book-chips">

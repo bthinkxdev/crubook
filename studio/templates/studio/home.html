@@ -53,9 +53,12 @@
       <div class="carousel" id="booksCarousel" data-dots="booksDots">
         {% for book in books %}
         <article class="product-card">
-          <a href="{{ book.get_absolute_url }}" class="product-cover{% if not book.is_available %} is-soon{% endif %}">
-            <img src="{{ book.cover.url }}" alt="{{ book.title }}" loading="lazy">
+          <a href="{{ book.get_absolute_url }}" class="card-hit" aria-label="{{ book.title }}">
+            <span class="sr-only">View {{ book.title }}</span>
           </a>
+          <div class="product-cover{% if not book.is_available %} is-soon{% endif %}" aria-hidden="true">
+            <img src="{{ book.cover.url }}" alt="" loading="lazy">
+          </div>
           <div class="product-body">
             <div class="product-copy">
               <h3>{{ book.title }}</h3>

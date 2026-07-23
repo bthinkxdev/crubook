@@ -16,12 +16,12 @@
   <section class="books-list" aria-label="All books">
     {% for book in books %}
     <article class="listing-card reveal{% if not forloop.first %} reveal-d1{% endif %}">
-      <a
-        href="{{ book.get_absolute_url }}"
-        class="listing-cover{% if not book.is_available %} is-soon{% endif %}"
-      >
-        <img src="{{ book.cover.url }}" alt="{{ book.title }}" loading="lazy">
+      <a href="{{ book.get_absolute_url }}" class="card-hit" aria-label="{{ book.title }}">
+        <span class="sr-only">View {{ book.title }}</span>
       </a>
+      <div class="listing-cover{% if not book.is_available %} is-soon{% endif %}" aria-hidden="true">
+        <img src="{{ book.cover.url }}" alt="" loading="lazy">
+      </div>
       <div class="listing-body">
         <p class="section-label">{% if book.is_available %}Available{% else %}Coming Soon{% endif %}</p>
         <h2>{{ book.title }}</h2>
