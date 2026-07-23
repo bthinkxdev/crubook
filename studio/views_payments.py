@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.views.decorators.http import require_POST
 
 from .models import Book, PurchaseOrder
-from .razorpay_client import get_razorpay_client, razorpay_configured
+from .razorpay_client import create_order, razorpay_configured, verify_payment_signature
 
 
 def _json_body(request):
@@ -59,18 +59,14 @@ def create_payment_order(request):
             status=400,
         )
 
-    client = get_razorpay_client()
     try:
-        rz_order = client.order.create(
-            {
-                "amount": amount_paise,
-                "currency": "INR",
-                "payment_capture": 1,
-                "notes": {
-                    "book_slug": book.slug,
-                    "product_type": product_type,
-                },
-            }
+        rz_order = create_order(
+            amount_paise=amount_paise,
+            currency="INR",
+            notes={
+                "book_slug": book.slug,
+                "product_type": product_type,
+            },
         )
     except Exception:
         return JsonResponse(
@@ -128,9 +124,11 @@ def verify_payment(request):
             status=400,
         )
 
-    order = PurchaseOrder.objects.select_related("book").filter(
-        razorpay_order_id=order_id
-    ).first()
+    order = (
+        PurchaseOrder.objects.select_related("book")
+        .filter(razorpay_order_id=order_id)
+        .first()
+    )
     if not order:
         return JsonResponse({"ok": False, "error": "Order not found."}, status=404)
 
@@ -144,16 +142,11 @@ def verify_payment(request):
             }
         )
 
-    client = get_razorpay_client()
-    try:
-        client.utility.verify_payment_signature(
-            {
-                "razorpay_order_id": order_id,
-                "razorpay_payment_id": payment_id,
-                "razorpay_signature": signature,
-            }
-        )
-    except Exception:
+    if not verify_payment_signature(
+        razorpay_order_id=order_id,
+        razorpay_payment_id=payment_id,
+        razorpay_signature=signature,
+    ):
         order.status = PurchaseOrder.FAILED
         order.save(update_fields=["status"])
         return JsonResponse(
